@@ -1,0 +1,135 @@
+<html>
+<head>
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/semantic.min.css">
+    <script type="text/javascript" src="vendor/semantic.min.js"></script>
+    <script>
+        $(() => {
+            $('.ui.embed').embed();
+
+            $('.item').click((e) => {
+                $('.item').removeClass('active');
+                $(e.target).addClass('active');
+
+                $('.cards').hide();
+                $('#' + $(e.target).data('page')).show();
+            });
+
+            $('.modal').modal({closable: false}).modal('show');
+
+            $('#agree').click(() => {
+                $('.modal').modal('hide');
+                $('#container').show();
+            });
+        });
+    </script>
+    <style>
+        .body {
+            margin-left: 15rem;
+            padding: 3rem;
+        }
+        .left.vertical.menu {
+            background-color: rgb(181, 164, 179);
+            padding-top: 1rem;
+        }
+        .menu .header {
+            margin-left: 1rem;
+            color: white;
+        }
+        .description {
+            font-size: 1.2rem;
+        }
+
+        .card .content .embed {
+            padding-bottom: 40%;
+        }
+    </style>
+    <title>Grand Rapids</title>
+</head>
+<body>
+<div id="container" style="display: none">
+<div class="ui left fixed vertical menu">
+    <h2 class="ui header">
+        Grand Rapids
+    </h2>
+    <a class="item active" data-page="page1">Home</a>
+    <a class="item" data-page="page2">ELA Content Cycles</a>
+    <a class="item" data-page="page3">Math Content Cycles</a>
+</div>
+<div class="body">
+    <div id="page1" class="ui cards">
+        <h1 class="ui header">
+            <div class="content">
+                Leading Educators
+                <div class="sub header">Content Cycles</div>
+            </div>
+        </h1>
+        <div class="ui card fluid">
+            <div class="content">
+                <div class="header">How is a Content Cycle Structured?</div>
+                <div class="description">
+                    <p>Content cycles are 12-week series of professional learning sessions organized around a single topic. These content cycles will be key resources for content leaders as they plan the collaborative time with their teams each week. Content cycles are customized to be curricular specific. Additional customizations will be supported at the school and team level by coaches.</p>
+                    <p>A full content cycle guides teacher professional learning on a particular topic over approximately 12 weeks.  Within the 12-week content cycle, teachers investigate four sub-topics by engaging in one week of shared learning, one week applying shared learning through lesson planning and lesson rehearsal, and one week analyzing data to monitor student progress.</p>
+                </div>
+            </div>
+        </div>
+        <div class="ui card fluid">
+            <div class="image">
+                <img src="images/image1.jpg">
+            </div>
+        </div>
+        <div class="ui card fluid">
+            <div class="content">
+                <div class="header">What resources are included in a Content Cycle?</div>
+                <div class="description">
+                    <p>The sessions are built so that content leaders can focus more time and energy on internalizing and adapting sessions and reviewing teacher artifacts. Content leaders will receive comprehensive materials for leading content cycles, including weekly session plans with key messages and talking points, as well as powerpoints, exemplars, and handouts. While these resources are intended as a robust support, content leaders should feel free to make adjustments to session plans and materials based on the needs of their teams.</p>
+                    <p><i>Navigate to the ELA and Math pages on this site to access Content Cycles and recommended Content Cycle Pathways & Calendars.</i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page2" class="ui cards" style="display: none;">
+        <h1 class="ui header">
+            <div class="content">
+                ELA Content Cycles
+            </div>
+        </h1>
+        <div class="ui card fluid">
+            <div class="content">
+                <div class="ui embed" data-url="https://drive.google.com/embeddedfolderview?authuser=0&id=12NRKW7PxeFBEbm8mRO14q9Jo-K1zHQZB#grid"></div>
+            </div>
+        </div>
+    </div>
+    <div id="page3" class="ui cards" style="display: none;">
+        <h1 class="ui header">
+            <div class="content">
+                Math Content Cycles
+            </div>
+        </h1>
+        <div class="ui card fluid">
+            <div class="content">
+                <div class="ui embed" data-url="https://drive.google.com/embeddedfolderview?authuser=0&id=1DElklN3sv5voj30sN8f1zK82Q_LVYE6a#grid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui modal">
+    <div class="header">Intellectual Property Agreement</div>
+    <div class="content">
+        <p>By using this site, you agree to the following Terms of Service .</p>
+        <ul>
+            <li>All session plans, slide decks, resources, and other training material and learning experiences are the intellectual property of Leading Educators. As a result, in the event that I would like to share them with anyone outside of my school team, I will seek permission in writing from Leading Educators and use only if permission is granted. In that case, I will give credit to Leading Educators by using their logo and acknowledging their ownership.</li>
+            <br/>
+            <li>I guarantee that I will not use Leading Educators Intellectual Property for profit, or knowingly permit a third party to do so.</li>
+        </ul>
+    </div>
+    <div class="actions">
+        <button id="agree" class="ui button">
+            I Agree
+        </button>
+    </div>
+</div>
+</div>
+</body>
+</html>

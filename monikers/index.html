@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#fff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Monikers - danielkjin</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#db2828">
+    <meta name="theme-color" content="#3d3232">
+    <link rel="manifest" href="manifest.json">
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js" defer></script>
+    <script type="application/javascript" src="lib/handlebars.js" defer></script>
+    <script type="application/javascript" src="helpers.js" defer></script>
+    <script type="application/javascript" src="index.js" defer></script>
+</head>
+<body>
+<div id="header" class="ui segment">
+    <div class="ui red dividing header clearing">
+        <div class="content">
+            <i class="user secret icon"></i>
+            <div class="content">
+                Monikers
+                <div class="sub header">danielkjin</div>
+            </div>
+        </div>
+        <div id="info">
+            <i class="info circle icon"></i>
+        </div>
+    </div>
+</div>
+<div id="card-container"></div>
+<div id="button-container" class="ui centered raised card hidden">
+    <div class="ui top attached progress timer red">
+        <div class="bar"></div>
+        <div class="label"></div>
+    </div>
+    <div class="content center aligned">
+        <div id="skip" class="ui negative basic button hidden">
+            <i class="history icon"></i>Skip
+        </div>
+        <div id="next" class="ui positive basic button hidden">
+            <i class="check icon"></i>Next
+        </div>
+        <div id="start" class="ui negative colored button fluid">
+            <i class="stopwatch icon"></i>Start
+        </div>
+        <div id="restart" class="ui positive colored button fluid hidden">
+            <i class="question icon"></i>Play Again?
+        </div>
+    </div>
+    <div class="ui bottom attached progress timer red">
+        <div class="bar"></div>
+        <div class="label"></div>
+    </div>
+</div>
+
+<div class="ui modal instructions mini coupled step1">
+    <div class="header">WELCOME TO MONIKERS</div>
+    <div class="content">
+        <p>A dumb party game that respects your intelligence.</p>
+        <div class="meta">
+            Created under the Creative Commons BY-NC-SA 4.0 license. Monikers, the game this was built on, was created
+            by Alex Hague and Justin Vickers.
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui right labeled icon button">
+            <i class="right arrow icon"></i>
+            Next
+        </button>
+    </div>
+</div>
+
+<div class="ui modal instructions small coupled step2">
+    <div class="header">GETTING STARTED</div>
+    <div class="scrolling content">
+        <p>Monikers only takes about 5-10 minutes to learn. Start
+            by dividing your group into 2 teams.
+            Deal 8 cards to each person. Everyone secretly
+            chooses 5 that they like. Shufe all the cards people
+            chose into one deck, which will be used by both
+            teams for the entire game. Put the other cards back in
+            the box.
+            You want to aim for using around 40-50 cards in the
+            deck, so deal fewer and choose fewer playing with a
+            big group, and deal more and choose more with a
+            small group.
+            The team with the best story about meeting someone
+            famous goes first. Or totally random. Up to you. </p>
+    </div>
+    <div class="actions">
+        <button class="ui right labeled icon button">
+            <i class="right arrow icon"></i>
+            HOW TO PLAY
+        </button>
+    </div>
+</div>
+
+<div class="ui modal instructions small coupled step3">
+    <div class="header">HOW TO PLAY</div>
+    <div class="scrolling content">
+        <p>A person from the starting team has 60 seconds to
+            get their team to guess as many names as possible
+            from the deck by giving clues about the person's
+            identity. (If you're playing with more than 10 people,
+            30-45 seconds is probably better.) There's no limit to
+            the number of guesses.
+            Skipping is allowed and highly encouraged in all
+            rounds.
+            Teams keep the cards they guessed correctly for
+            scoring. Reshufe skipped cards into the deck after
+            each turn.
+            Teams take turns giving clues. Each player should
+            take a turn giving clues before any teammates repeat.
+            Go in clockwise order or feel free to use some other
+            system.
+            A round ends when all cards from the deck have
+            been guessed correctly. When that happens, teams
+            add the point values from each card they correctly
+            guessed. Write those numbers down somewhere, then
+            shufe all the cards back together into one deck.
+            The team with the lowest score begins the next round. </p>
+    </div>
+    <div class="actions">
+        <button class="ui right labeled icon button">
+            <i class="right arrow icon"></i>
+            RULES FOR EACH ROUND
+        </button>
+    </div>
+</div>
+
+<div class="ui modal instructions small coupled step4">
+    <div class="header">RULES FOR EACH ROUND</div>
+    <div class="scrolling content">
+        <p>Monikers has 3 rounds. Each has a restriction on how
+            players are allowed to give clues:
+            ROUND 1 You can use any words, sounds, or
+            gestures except the name itself, including the clue
+            text on the card. If you say any part of the name, you
+            have to skip that card this turn.
+            ROUND 2 Use only one word, which can be
+            anything except the name itself. You can repeat that
+            word as many times as you like, but no sounds or
+            gestures.
+            ROUND 3 Just charades. No words. Sound efects
+            are OK.</p>
+    </div>
+    <div class="actions">
+        <button class="ui right labeled icon button">
+            <i class="right arrow icon"></i>
+            ENDING THE GAME
+        </button>
+    </div>
+</div>
+
+<div class="ui modal instructions small coupled step5">
+    <div class="header">ENDING THE GAME</div>
+    <div class="scrolling content">
+        <p>The team with the highest total score after 3 rounds
+            wins. But feel free not to keep score at all. It's fun to
+            play competitively, but not necessary with the right
+            group.
+            That's it, really. For clarifications and some diferent
+            ways to play, see the reverse side of this sheet. If you
+            have any unanswered questions, contact us or just go
+            with whatever works best for your group. Having fun
+            is more important than getting it perfect.</p>
+    </div>
+    <div class="actions">
+        <button class="ui right labeled icon button approve">
+            <i class="right arrow icon"></i>
+            BEGIN!
+        </button>
+    </div>
+</div>
+
+<script id="card-template" type="text/x-handlebars-template">
+    <div id="card" class="ui centered raised card">
+        <div id="text" class="content">
+            <div class="right floated meta">{{index}}/{{handSize}}</div>
+            <a class="header center aligned">{{title}}</a>
+            <div class="description content">
+                {{body}}
+            </div>
+        </div>
+        <div class="extra content">
+            <div class="center aligned">
+                <div class="meta">
+                    {{category}}
+                </div>
+                <div class="ui image">
+                    <div id="points-value">{{points}}</div>
+                    <div id="points-text">{{#ifCond points '==' "1"}}point{{else}}points{{/ifCond}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="empty-card-template" type="text/x-handlebars-template">
+    <div id="empty-card" class="ui centered raised card">
+        <div class="content">
+            <div class="ui raised segments">
+                <div class="ui segment center aligned">
+                    <h3 class="ui header">
+                        Team {{turn}}'s turn
+                    </h3>
+                </div>
+                <div class="ui segment secondary">
+                    <h4 class="ui header">
+                        <i class="clipboard outline icon"></i>
+                        <div class="content">
+                            Current Score
+                            <div class="sub header">{{teamOnePoints}} - {{teamTwoPoints}}</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+            <div class="ui tiny steps fluid vertical">
+                <div class="step {{#ifCond round '==' 1}}active{{/ifCond}}">
+                    <div class="content">
+                        <div class="title">Round 1</div>
+                        <div class="description">Anything goes</div>
+                        {{#ifCond round '>=' 1}}
+                        <div class="sub header">{{roundOneTeamOnePoints}} - {{roundOneTeamTwoPoints}}</div>
+                        {{/ifCond}}
+                    </div>
+                </div>
+                <div class="step {{#ifCond round '==' 2}}active{{/ifCond}}">
+                    <div class="content">
+                        <div class="title">Round 2</div>
+                        <div class="description">One word</div>
+                        {{#ifCond round '>=' 2}}
+                        <div class="sub header">{{roundTwoTeamOnePoints}} - {{roundTwoTeamTwoPoints}}</div>
+                        {{/ifCond}}
+                    </div>
+                </div>
+                <div class="step {{#ifCond '==' round 3}}active{{/ifCond}}">
+                    <div class="content">
+                        <div class="title">Round 3</div>
+                        <div class="description">Charades</div>
+                        {{#ifCond round '==' 3}}
+                        <div class="sub header">{{roundThreeTeamOnePoints}} - {{roundThreeTeamTwoPoints}}</div>
+                        {{/ifCond}}
+                    </div>
+                </div>
+            </div>
+        </div>
+</script>
+
+<script id="winner-card-template" type="text/x-handlebars-template">
+    <div id="empty-card" class="ui centered raised card">
+        <div class="content">
+            <div class="ui raised segments">
+                <div class="ui segment center aligned">
+                    <h3 class="ui header">
+                        {{#if tie}}
+                        Tie game!
+                        {{else}}
+                        Team {{winner}} won!
+                        {{/if}}
+                    </h3>
+                </div>
+                <div class="ui segment secondary">
+                    <h4 class="ui header">
+                        <i class="clipboard outline icon"></i>
+                        <div class="content">
+                            Final Score
+                            <div class="sub header">{{teamOnePoints}} - {{teamTwoPoints}}</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+</script>
+<script id="setup-card-template" type="text/x-handlebars-template">
+    <div id="setup-card" class="ui centered raised card">
+        <div class="content">
+            {{#ifCond cards.length '>' 0}}
+            <div class="ui raised segments">
+                <div class="ui segment center aligned">
+                    <div class="ui header">Pick {{ pickSize }} cards</div>
+                </div>
+                <div class="ui segment left aligned">
+                    <div class="ui form">
+                        <div class="grouped fields">
+                            {{#each cards}}
+                            <div class="field">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" id="checkbox{{@index}}">
+                                    <label for="checkbox{{@index}}">{{this.title}}</label>
+                                </div>
+                            </div>
+                            {{/each}}
+                            <div class="ui positive basic fluid button disabled">
+                                <i class="check icon"></i>Next
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/ifCond}}
+            {{#ifCond cards.length '===' 0}}
+            <div class="ui raised segments">
+                <div class="ui segment center aligned">
+
+                    <h3 class="ui header">Monikers</h3>
+                    <div class="meta">
+                        <span class="category">A dumb part game that respects your intelligence.</span>
+                    </div>
+                </div>
+                <div class="ui segment">
+                    <form class="ui form players">
+                        <div class="field">
+                            <label>Deck Size</label>
+                            <input type="text" name="integer" value="40">
+                        </div>
+                        <div class="ui positive basic fluid button">
+                            <i class="check icon"></i>Next
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{/ifCond}}
+            {{#ifCond cards '==' null}}
+            <div class="ui raised segments">
+                <div class="ui segment center aligned">
+
+                    <h3 class="ui header">Monikers</h3>
+                    <div class="meta">
+                        <span class="category">A dumb part game that respects your intelligence.</span>
+                    </div>
+                </div>
+                <div class="ui segment">
+                    <form class="ui form players">
+                        <div class="field">
+                            <label>Number of Players</label>
+                            <input type="text" name="integer" placeholder="Number of Players">
+                        </div>
+                        <div class="ui positive basic fluid button disabled">
+                            <i class="check icon"></i>Next
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{/ifCond}}
+        </div>
+    </div>
+</script>
+</body>
+</html>
