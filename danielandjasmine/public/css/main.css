@@ -1,0 +1,39 @@
+#main {
+    width: 90%;
+    height: 90%;
+    z-index: 1;
+    margin: 10px auto;
+}
+
+.grid {
+    width: 90% !important;
+    margin: 10px auto !important;
+}
+
+.segment {
+    margin-bottom: 10px !important;
+}
+
+.modal {
+    position: absolute;
+    left: 0;
+    top: -260px;
+    bottom: -100px;
+    height: 1210px;
+    right: 0;
+    background: #000;
+    opacity: 0.6;
+    z-index: 9999;
+    filter: alpha(opacity=80);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.icon {
+    position: absolute;
+    top: 40%;
+    color: red;
+    width: 100% !important;
+}

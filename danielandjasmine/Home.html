@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>danielandjasmine</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel='stylesheet' type='text/css' href='public/css/main.css'>
+    <link rel='stylesheet' type='text/css' href='public/vendor/semantic/semantic.min.css'>
+    <script src='public/js/jquery-2.0.3.min.js'></script>
+    <script src='public/vendor/semantic/semantic.min.js'></script>
+    <script>
+    $(function() {
+        $('#yes').click(function(){
+          var r = confirm("Are you sure you want to say yes?");
+          if (r == true) {
+              var x = confirm("Are you really sure?");
+              if (x == true) {
+                var y = confirm("You can't go back from here!");
+                  if (y == true) {
+                    $('body').scrollTop(0);
+                    $('#happy').removeClass('hidden');
+                    var myaudio = new Audio('public/song.mp3');
+                    myaudio.play();
+                  }
+              }
+          }
+        });
+        $('#no').click(function(){
+          var r = confirm("Are you sure you want to say no?");
+          if (r == true) {
+              var x = confirm("Are you really sure?");
+              if (x == true) {
+                var y = confirm("This action may break someone's heart?");
+                  if (y == true) {
+                    $('body').scrollTop(0);
+                    $('#sad').removeClass('hidden');
+                  }
+              }
+          }
+
+        });
+    });
+    </script>
+  </head>
+  <body>
+    <div id='main'>
+      <div class="ui segment">
+        <a class="ui ribbon label teal">Dear Jasmine</a>
+        <br><br>
+        It's been 624 days since we started dating. 1664 days since we first met. How lucky I am to have known you for these 1664 days and to have been able to call you mine for 624 of them. I could not put a value on this time. <br>
+        What I can say is that I don't want this to end. Not because these days have filled me with happiness, the likes of which I have never known. Not because when you call my name, I feel like I'm being called home. Not even because of your butt!<br>
+        It's because when I look at you, I don't wonder about what's going to happen. I know that things are gonna fall into place. The future is hazy and we have no clue where it will take us, but I know that we will make it work.<br>
+        When we argue and fight and hurt each other's feelings, we know that it isn't the end. That our story is about more than that. The troubles will come. Tears will fall. But there isn't a soul I would rather do that with. <br>
+        So what I'm asking you, my Jasmine, is if you want more nights of laughing in bed until we can't breathe, more slaps on your butt even though you keep saying to stop, more drinking beer til we are drunk and happy, and more challenging each other to be the best people we can be? I can promise you this won't be easy but it will be worth it.<br><br>
+
+        So I guess, what I'm asking you is...<br><br>
+
+        Will you marry me?
+        <div class="ui two column stackable center aligned grid segment">
+          <div class="column">
+        <div id="yes" class="teal ui button">Yes</div>
+          </div>
+          <div class="ui vertical divider">or</div>
+          <div class="column">
+        <div id="no" class="ui button">No</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="happy" class='modal hidden'>
+      <i class="massive like icon"></i>
+    </div>
+    <div id="sad" class='modal hidden'>
+      <i class="massive frown icon"></i>
+    </div>
+  </body>
+</html>
