@@ -1,5 +1,5 @@
-$(window).scroll(function(){
-    var opacity = 1 - ($(this).scrollTop() / 350);
-
-    $('#header header').css({"opacity":opacity});
+// Keep the footer year current. Vanilla JS — no jQuery.
+document.addEventListener('DOMContentLoaded', function () {
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
 });
