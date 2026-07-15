@@ -442,7 +442,7 @@
         var cards = recipes.map(function (r) {
             var a = document.createElement("a");
             a.className = "card";
-            a.href = r.file;              // browser encodes on navigation
+            a.href = "recipe.html?id=" + r.id;
             a.setAttribute("aria-label", r.title);
 
             var thumb = document.createElement("div");
@@ -495,7 +495,7 @@
             }
             a.appendChild(body);
 
-            var hay = (r.title + " " + r.ingredients + " " + r.sauce + " " +
+            var hay = (r.title + " " + r.ingredients + " " +
                        (r.tags || []).join(" ")).toLowerCase();
             return { node: a, r: r, hay: hay };
         });
@@ -578,6 +578,14 @@
                 qInput.value = ""; state.q = ""; render();
             }
         });
+
+        // deep-link support: ?cat= and ?q= (used by recipe-page tag links)
+        var validCats = { all: 1 };
+        cats.forEach(function (c) { validCats[c.key] = 1; });
+        var pc = /[?&]cat=([^&]*)/.exec(location.search);
+        var pq = /[?&]q=([^&]*)/.exec(location.search);
+        if (pc && validCats[decodeURIComponent(pc[1])]) state.cat = decodeURIComponent(pc[1]);
+        if (pq) { state.q = decodeURIComponent(pq[1].replace(/\+/g, " ")); qInput.value = state.q; }
 
         buildChips();
         render();
