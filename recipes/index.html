@@ -571,6 +571,14 @@
             state = { q: "", cat: "all", sort: sortSel.value };
             qInput.value = ""; render();
         });
+        // Back/forward-cache restore preserves our filter state and the rendered
+        // grid, but the browser can wipe the search input (autocomplete="off").
+        // Re-sync the controls from state on every show so input and results agree.
+        window.addEventListener("pageshow", function () {
+            qInput.value = state.q;
+            sortSel.value = state.sort;
+            render();
+        });
         // "/" focuses search, Escape clears
         document.addEventListener("keydown", function (e) {
             if (e.key === "/" && document.activeElement !== qInput) { e.preventDefault(); qInput.focus(); }
