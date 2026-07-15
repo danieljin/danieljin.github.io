@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe · Jasmine's Recipes</title>
+    <meta name="description" content="A preserved Korean home-cooking recipe.">
+    <meta name="theme-color" content="#eeeae1">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%239a5b34'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' fill='%23f4f1ea' text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E">
+
+    <style>
+        @font-face {
+            font-family: "Helvetica LT";
+            src: url("../assets/HelveticaLTStd-Light.otf") format("opentype");
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        :root {
+            --bg: #eeeae1;
+            --card: #f7f4ec;
+            --ink: #20201c;
+            --muted: #6b675d;
+            --faint: #9d988b;
+            --rule: #ded9cd;
+            --accent: #9a5b34;
+            --accent-soft: #f0e6dc;
+            --mono: ui-monospace, "SF Mono", Menlo, monospace;
+            --serif: Georgia, "Times New Roman", serif;
+            --sans: "Helvetica LT", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            position: relative;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.32;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+        }
+        a { color: inherit; }
+
+        /* top bar */
+        .bar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(238, 234, 225, 0.9);
+            backdrop-filter: saturate(140%) blur(8px);
+            -webkit-backdrop-filter: saturate(140%) blur(8px);
+            border-bottom: 1px solid var(--rule);
+        }
+        .bar-inner {
+            max-width: 44rem;
+            margin: 0 auto;
+            padding: 0.85rem 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+        .bar-inner a { text-decoration: none; transition: color 0.15s; }
+        .bar-inner a:hover { color: var(--accent); }
+
+        .wrap {
+            max-width: 44rem;
+            margin: 0 auto;
+            padding: 1.6rem 1.4rem 4rem;
+            animation: rise 0.6s ease both;
+        }
+        @media (prefers-reduced-motion: reduce) { .wrap { animation: none; } }
+        @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+        .hero {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid var(--rule);
+            background: #e6e0d4;
+            display: block;
+        }
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 1.8rem 0 0;
+        }
+        h1.title {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: clamp(1.9rem, 5.4vw, 2.9rem);
+            line-height: 1.12;
+            letter-spacing: -0.01em;
+            margin: 0.5rem 0 0;
+        }
+        .facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.4rem;
+            margin: 1.2rem 0 0;
+            padding: 0 0 1.4rem;
+            border-bottom: 1px solid var(--rule);
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+        .facts .f { display: flex; align-items: center; gap: 0.4rem; }
+        .facts .f b { font-weight: 400; color: var(--faint); }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); display: inline-block; }
+        .dot.easy { background: #6f9457; }
+        .dot.mid { background: var(--accent); }
+        .dot.hard { background: #b0442c; }
+
+        /* article body */
+        article { margin-top: 1.8rem; }
+        article p {
+            font-size: 1.06rem;
+            line-height: 1.5;
+            color: #34322c;
+            margin: 0.15rem 0;
+            max-width: 34rem;
+        }
+        article h2 {
+            font-family: var(--mono);
+            font-size: 0.76rem;
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 2.2rem 0 0.7rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--rule);
+        }
+        article img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--rule);
+            margin: 1.1rem 0;
+            background: #e6e0d4;
+            cursor: zoom-in;
+        }
+        /* tighten spacing between consecutive short text lines */
+        article p + p { margin-top: 0.1rem; }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 2.4rem 0 0;
+        }
+        .tags a {
+            font-size: 0.8rem;
+            color: var(--muted);
+            background: var(--card);
+            border: 1px solid var(--rule);
+            border-radius: 999px;
+            padding: 0.3rem 0.75rem;
+            text-decoration: none;
+            transition: all 0.14s;
+        }
+        .tags a:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* prev / next */
+        nav.pager {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule);
+        }
+        nav.pager a {
+            flex: 1;
+            text-decoration: none;
+            color: var(--muted);
+            transition: color 0.15s;
+            max-width: 48%;
+        }
+        nav.pager a:hover { color: var(--accent); }
+        nav.pager .lbl { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+        nav.pager .t { font-family: var(--serif); font-size: 1rem; line-height: 1.3; display: block; margin-top: 0.25rem; }
+        nav.pager .next { text-align: right; }
+        nav.pager a.disabled { visibility: hidden; }
+
+        footer {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--faint);
+            margin-top: 3rem;
+            text-align: center;
+        }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--accent); }
+
+        .notfound { text-align: center; padding: 5rem 1rem; }
+        .notfound h1 { font-family: var(--serif); font-weight: 400; }
+        .notfound a { color: var(--accent); }
+
+        /* lightbox */
+        .lb {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(24, 21, 16, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            cursor: zoom-out;
+        }
+        .lb.open { display: flex; }
+        .lb img { max-width: 100%; max-height: 100%; border-radius: 10px; }
+
+        @media (max-width: 480px) {
+            article p { font-size: 1.02rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bar">
+        <div class="bar-inner">
+            <a href="index.html" id="back">← All recipes</a>
+            <a href="../">danieljin</a>
+        </div>
+    </div>
+
+    <div class="wrap" id="wrap"></div>
+    <div class="lb" id="lb"><img alt="" id="lbimg"></div>
+
+    <script src="recipes-content.js"></script>
+    <script>
+    (function () {
+        var DB = window.RECIPES_CONTENT || {};
+        var ids = Object.keys(DB);
+        var wrap = document.getElementById("wrap");
+
+        function param(name) {
+            var m = new RegExp("[?&]" + name + "=([^&]*)").exec(location.search);
+            return m ? decodeURIComponent(m[1].replace(/\+/g, " ")) : "";
+        }
+        var CAT_EN = { soup: "Soups & Stews", rice: "Rice & Noodles", dessert: "Desserts & Baking",
+            grill: "Grilled & Fried", braise: "Braised & Steamed", side: "Sides & Pickles", other: "Recipe" };
+
+        function diffClass(d) {
+            if (!d) return "";
+            if (d.indexOf("초보") > -1) return "easy";
+            if (d.indexOf("고급") > -1 || d.indexOf("어려") > -1) return "hard";
+            return "mid";
+        }
+
+        function el(tag, cls, text) {
+            var e = document.createElement(tag);
+            if (cls) e.className = cls;
+            if (text != null) e.textContent = text;
+            return e;
+        }
+
+        var id = param("id");
+        var r = DB[id];
+
+        if (!r) {
+            document.title = "Not found · Jasmine's Recipes";
+            var nf = el("div", "notfound");
+            nf.appendChild(el("h1", null, "Recipe not found"));
+            var p = el("p"); var a = el("a", null, "← Back to all recipes"); a.href = "index.html";
+            p.appendChild(a); nf.appendChild(p);
+            wrap.appendChild(nf);
+            return;
+        }
+
+        document.title = r.title + " · Jasmine's Recipes";
+        var md = document.querySelector('meta[name="description"]');
+        if (md && r.ingredients) md.setAttribute("content", r.title + " — " + r.ingredients.slice(0, 150));
+
+        // hero
+        if (r.hero) {
+            var hero = el("img", "hero");
+            hero.src = r.hero; hero.alt = r.title; hero.decoding = "async";
+            wrap.appendChild(hero);
+        }
+        // eyebrow + title
+        wrap.appendChild(el("p", "eyebrow", CAT_EN[r.cat] || "Recipe"));
+        wrap.appendChild(el("h1", "title", r.title));
+
+        // facts
+        var facts = el("div", "facts");
+        function fact(label, value, dotCls) {
+            var f = el("div", "f");
+            if (dotCls != null) { var d = el("span", "dot " + dotCls); f.appendChild(d); }
+            if (label) f.appendChild(el("b", null, label + " "));
+            f.appendChild(document.createTextNode(value));
+            facts.appendChild(f);
+        }
+        if (r.time) fact("⏱", r.time);
+        if (r.difficulty) fact(null, r.difficulty, diffClass(r.difficulty));
+        if (r.serving) fact("Serves", r.serving);
+        if (facts.children.length) wrap.appendChild(facts);
+
+        // body
+        var art = el("article");
+        (r.blocks || []).forEach(function (b) {
+            if (b.t === "img") {
+                var im = el("img"); im.src = b.src; im.alt = ""; im.loading = "lazy"; im.decoding = "async";
+                art.appendChild(im);
+            } else if (b.t === "h") {
+                art.appendChild(el("h2", null, b.v));
+            } else {
+                art.appendChild(el("p", null, b.v));
+            }
+        });
+        wrap.appendChild(art);
+
+        // tags -> deep link back into the index search
+        if (r.tags && r.tags.length) {
+            var tw = el("div", "tags");
+            r.tags.forEach(function (t) {
+                var a = el("a", null, "#" + t);
+                a.href = "index.html?q=" + encodeURIComponent(t);
+                tw.appendChild(a);
+            });
+            wrap.appendChild(tw);
+        }
+
+        // prev / next
+        var i = ids.indexOf(id);
+        var pager = el("nav", "pager");
+        function link(targetId, cls, label) {
+            var a = el("a", cls);
+            if (targetId) {
+                a.href = "recipe.html?id=" + targetId;
+                a.appendChild(el("span", "lbl", label));
+                a.appendChild(el("span", "t", DB[targetId].title));
+            } else {
+                a.className += " disabled";
+            }
+            return a;
+        }
+        pager.appendChild(link(i > 0 ? ids[i - 1] : null, "prev", "← Previous"));
+        pager.appendChild(link(i < ids.length - 1 ? ids[i + 1] : null, "next", "Next →"));
+        wrap.appendChild(pager);
+
+        var foot = el("footer");
+        foot.innerHTML = 'Preserved from 다음 요리 · <a href="index.html">all recipes</a>';
+        wrap.appendChild(foot);
+
+        // lightbox
+        var lb = document.getElementById("lb"), lbimg = document.getElementById("lbimg");
+        art.addEventListener("click", function (e) {
+            if (e.target.tagName === "IMG") { lbimg.src = e.target.src; lb.classList.add("open"); }
+        });
+        lb.addEventListener("click", function () { lb.classList.remove("open"); lbimg.src = ""; });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") { lb.classList.remove("open"); lbimg.src = ""; }
+        });
+    })();
+    </script>
+</body>
+
+</html>
