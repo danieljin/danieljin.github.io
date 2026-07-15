@@ -7,8 +7,9 @@ Reads every recipes/*.html (except index.html) and produces:
   recipes/img/<id>/NN.jpg       optimized step photos (~680px)
   recipes/thumbs/<id>.jpg       4:3 hero thumbnail for the index grid
 
-Re-runnable: regenerates everything from the source HTML. The saved HTML files
-are the source of truth and are left untouched.
+The original saved HTML pages were removed from the working tree once their
+data + images were extracted. They remain in git history (the commit before
+"Remove original saved recipe HTML"); restore them there to re-run this build.
 
 Usage:  python3 build_recipes.py           (dry run: stats only)
         python3 build_recipes.py --write    (write data + images)
